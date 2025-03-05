@@ -107,6 +107,84 @@ app.delete("/concerts/:id", async (req, res) => {
   }
 });
 
+// CRUD operations for Artists
+
+app.post("/artists", async (req, res) => {
+  try {
+    // Use await for the create operation
+    const artist = await Artist.create(req.body);
+    res.status(201).json(artist);
+  } catch (err) {
+    console.error("Error creating artists:", err); // Log the error
+    res
+      .status(400)
+      .json({ message: "Error creating artists", error: err.message });
+  }
+});
+
+app.get("/artists", async (req, res) => {
+  try {
+    const artist = await Artist.find(); // Fetch all concerts from MongoDB
+    res.status(200).json(artist); // Send the retrieved concerts as JSON response
+  } catch (err) {
+    console.error("Error fetching artists:", err); // Log any errors
+    res
+      .status(500)
+      .json({ message: "Error fetching artists", error: err.message });
+  }
+});
+
+app.get("/artists/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const artist = await Artist.findById(id); // Fetch all concerts from MongoDB
+    res.status(200).json(artist); // Send the retrieved concerts as JSON response
+  } catch (err) {
+    console.error("Error fetching artists :", err); // Log any errors
+    res
+      .status(500)
+      .json({ message: "Error fetching artists", error: err.message });
+  }
+});
+
+app.put("/artists/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const artist = await Artist.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    if (!artist) {
+      return res.status(404).json({ message: "Artist not found" });
+    }
+
+    res.status(200).json(artist);
+  } catch (err) {
+    console.error("Error updating artist:", err);
+    res
+      .status(500)
+      .json({ message: "Error updating artist", error: err.message });
+  }
+});
+
+app.delete("/artists/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const artist = await Artist.findByIdAndDelete(id);
+
+    if (!artist) {
+      return res.status(404).json({ message: "Artist not found" });
+    }
+
+    res.status(200).json({ message: "Artist deleted successfully", artist });
+  } catch (err) {
+    console.error("Error deleting Artist:", err);
+    res
+      .status(500)
+      .json({ message: "Error deleting Artist", error: err.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
