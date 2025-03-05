@@ -15,20 +15,18 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  concertLikes: 
-    [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Concert" }
-    ],
-  
-  artistLikes: 
-    [
-        {
-            type: Schema.Types.ObjectId,
-            ref: "Artist" }
-    ]
-  
+  concertLikes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Concert",
+    },
+  ],
+  artistLikes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Artist",
+    },
+  ],
 });
 
 module.exports = model("User", userSchema);
