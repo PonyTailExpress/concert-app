@@ -27,6 +27,10 @@ const userSchema = new Schema({
       ref: "Artist",
     },
   ],
+  role: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 module.exports = model("User", userSchema);
