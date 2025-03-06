@@ -14,7 +14,7 @@ const saltRounds = 10;
 // POST /auth/signup  (Register)
 //
 router.post("/signup", (req, res, next) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
   console.log("req.body", req.body);
 
   // Check if the email or password or name is provided as an empty string
@@ -56,7 +56,6 @@ router.post("/signup", (req, res, next) => {
         name: name,
         email: email,
         password: hashedPassword,
-        role: role,
       };
 
       // Create a new user in the database
@@ -130,9 +129,8 @@ router.post("/login", (req, res, next) => {
     });
 });
 
-//
 // GET /auth/verify (Verify a JWT)
-//
+
 router.get("/verify", isAuthenticated, (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and made available on `req.payload`
@@ -141,6 +139,56 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   // Send back the object with user data
   // previously set as the token payload
   res.json(req.payload);
+});
+
+router.patch("/concerts/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params; // ID of the concert to like
+  const { userId } = req.body; // Get the user ID from the request
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Prevent duplicates
+    if (!user.concertLikes.includes(id)) {
+      user.concertLikes.push(id);
+      await user.save();
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error("Error updating user:", err);
+    res
+      .status(500)
+      .json({ message: "Error updating user", error: err.message });
+  }
+});
+
+router.patch("/artists/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params; // ID of the artist to like
+  const { userId } = req.body; // Get the user ID from the request
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Prevent duplicates
+    if (!user.artistLikes.includes(id)) {
+      user.artistLikes.push(id);
+      await user.save();
+    }
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error("Error updating user:", err);
+    res
+      .status(500)
+      .json({ message: "Error updating user", error: err.message });
+  }
 });
 
 module.exports = router;
