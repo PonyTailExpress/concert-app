@@ -1,0 +1,98 @@
+
+Hamid and David's Music Concert MVP
+
+
+Requirement
+
+- Auth (register, login, logout)
+
+
+role: { type: String, Enum: ["
+ADMIN", "USER", default: "USER"}
+
+- At least 3 models
+  - Users (tole)
+    - name -> string
+    - email -> string, unqiue
+    - password -> hashed
+
+- userFavs
+   - concertLike -> concertId (for each document)
+   - artistLike  -> artistId (for each docukment)
+   
+  - Concert
+    - name
+    - address -> string
+    - image -> string ('http:lodsd')
+    - artist -> ArtistID
+
+
+  - Artists
+
+  Backend
+  - initiate npm (npm init --yes)
+  - Express (npm install express)
+  - install nodemon as a global dependency (npm install -g nodemon)
+  - Mongoose (npm install mongoose)
+    
+- CRUD
+  - Concert --> CRUD
+  - 
+
+  add 'Admin' role  (extra bonus time)
+  Comments or tickets? (extra bonus time)
+
+Day 1
+- Planning
+  - Come up with Models
+  - Create Repo within a organisation project via GitHub
+
+
+Day 1: Project Setup & Planning
+
+- Create GitHub Repos:
+  - Create two separate repositories for your frontend and backend
+
+- Backend Setup:
+  - Initialize Backend Project:
+    - Use npm init to start the backend
+    - install necessary dependencies:
+      - express
+      - mongoose
+      - bcryptjs (for password encryption)
+      - jsonwebtoken (for token-based authentication)
+      - dotenv (for managing environment variables)
+   - Set up a basic Express server that listens on a port
+
+- Set Up MongoDB: Set up a MongoDB database for storing user information, concerts, and artists
+  - Create Models:
+  - User Model: For user authentication (email, password)
+  - Concert Model: For concert details (name, date, location, artists)
+  - Artist Model: For artist details (name, genre, bio)
+
+- Frontend Setup:
+  - Initialize Frontend Project:
+    - Create the React app using create-react-app
+  - Install Dependencies:
+    - Install axios for making HTTP requests to your API
+    - react-router-dom for navigation, react-hook-form for handling forms, and jsonwebtoken for storing tokens
+  - Create Initial Pages:
+   - Home page
+   - login page
+   - signup page
+   - concert listing page
+  - Set Up Routing:
+    - use react-router-dom to implement routing between pages
+
+
+Day 2: Backend Development (User Authentication)
+
+- User Authentication (Signup, Login, Logout):
+  - Signup Route: Create a POST route for users to sign up. This should accept email and password, hash the password using bcryptjs, and store the user in the MongoDB database.
+  - Login Route: Create a POST route that accepts email and password, validates them, and generates a JWT token for the user.
+    - Logout: Implement a basic logout functionality in the frontend, where the JWT token is removed from local storage (if storing it there).
+
+- Validation and Error Handling:
+  - Implement middleware to handle validation and centralized error handling.
+    - validate user inputs for signup/login and handle missing fields, invalid email formats, etc.
+    - Create a custom error handler for API responses (e.g., 400 for bad requests, 500 for internal server errors).
