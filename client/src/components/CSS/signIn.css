@@ -1,0 +1,151 @@
+/* Shared Styles for Both Forms */
+.signup-form,
+.signin-form {
+  max-width: 400px;
+  width: 90%; /* Ensure it doesn't overflow on small screens */
+  margin: 0 auto; /* Center the form horizontally */
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  position: absolute; /* Position the form absolutely */
+  top: 50%; /* Move the form down by 50% of the viewport height */
+  left: 50%; /* Move the form right by 50% of the viewport width */
+  transform: translate(-50%, -50%); /* Center the form precisely */
+  box-sizing: border-box; /* Include padding in width and height */
+}
+
+.signup-form h2,
+.signin-form h2 {
+  text-align: center;
+  color: #007bff;
+  margin-bottom: 20px;
+  font-size: 2rem; /* Larger font size for headings */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Add more spacing between fields */
+  width: 100%; /* Ensure inputs take full width */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px; /* Add spacing between label and input */
+  color: #333;
+  font-size: 1rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px; /* Increase padding for better spacing */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease; /* Smooth transition for focus */
+}
+
+.form-group input:focus {
+  border-color: #007bff; /* Highlight input on focus */
+  outline: none; /* Remove default outline */
+}
+
+/* Button Styles */
+.submit-button {
+  width: 100%;
+  padding: 12px; /* Increase padding for better spacing */
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Add spacing between buttons */
+}
+
+.submit-button:hover {
+  background: #0056b3;
+}
+
+/* Secondary Button (for Sign Up link) */
+.secondary-button {
+  width: 100%;
+  padding: 12px; /* Increase padding for better spacing */
+  background: transparent;
+  color: #007bff;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-top: 10px; /* Add spacing between buttons */
+  text-align: center;
+  text-decoration: none; /* Remove underline for links */
+}
+
+.secondary-button:hover {
+  background: #007bff;
+  color: white;
+}
+
+/* Error and Success Messages */
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.success {
+  color: green;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+/* Style for the checkbox and its label */
+.form-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add spacing between checkbox and label text */
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .form-group input[type="checkbox"] {
+    width: auto; /* Reset width for checkbox */
+    margin: 0; /* Remove default margin */
+  }
+
+/* Media Query for Mobile Devices */
+@media (max-width: 768px) {
+  .signup-form,
+  .signin-form {
+    padding: 15px; /* Reduce padding for smaller screens */
+    width: 95%; /* Increase width for better fit on mobile */
+  }
+
+  .signup-form h2,
+  .signin-form h2 {
+    font-size: 1.5rem; /* Smaller font size for headings */
+  }
+
+  .form-group input {
+    padding: 10px; /* Slightly reduce padding for mobile */
+    font-size: 0.9rem; /* Smaller font size for inputs */
+  }
+
+  .submit-button,
+  .secondary-button {
+    padding: 10px; /* Slightly reduce padding for mobile */
+    font-size: 0.9rem; /* Smaller font size for buttons */
+  }
+
+  .error,
+  .success {
+    font-size: 0.9rem; /* Smaller font size for messages */
+  }
+}

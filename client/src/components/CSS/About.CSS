@@ -1,0 +1,87 @@
+/* Centering the entire about-container */
+
+  
+  .about-container {
+    max-width: 1000px;
+    width: 90%;
+    padding: 220px;
+    background: transparent;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: "Arial", sans-serif;
+  }
+    
+  h1 {
+    color: #007bff;
+    font-size: 2rem;
+  }
+    
+  p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.6;
+  }
+    
+  .features {
+    margin-top: 20px;
+  }
+    
+  h2 {
+    color: #0056b3;
+    font-size: 1.5rem;
+  }
+    
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+    
+  ul li {
+    font-size: 1.1rem;
+    background: #e9ecef;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+  }
+    
+  .cta {
+    margin-top: 30px;
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+  }
+    
+  .cta:hover {
+    background: #0056b3;
+    cursor: pointer;
+  }
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 40px 20px; /* Reduce padding for smaller screens */
+    }
+  
+    h1 {
+      font-size: 1.8rem; /* Slightly smaller font size for mobile */
+    }
+  
+    p {
+      font-size: 1rem; /* Smaller font size for better readability */
+    }
+  
+    h2 {
+      font-size: 1.3rem; /* Smaller font size for mobile */
+    }
+  
+    ul li {
+      font-size: 1rem; /* Smaller font size for list items */
+      padding: 8px; /* Slightly reduce padding */
+    }
+  
+    .cta {
+      padding: 12px; /* Smaller padding for mobile */
+      font-size: 1.1rem; /* Smaller font size for mobile */
+    }
+  }

@@ -127,6 +127,19 @@
   .mobile-menu-item:hover {
     color: #f0a500;
   }
+
+  /* Active Tab State */
+.navbar-tab.active {
+  color: #f0a500; /* Highlight color for active tab */
+  border-bottom: 2px solid #f0a500; /* Optional: Add a bottom border for emphasis */
+}
+
+/* Active State for Mobile Menu Items */
+.mobile-menu-item.active {
+  color: #f0a500; /* Highlight color for active mobile menu item */
+  border-left: 2px solid #f0a500; /* Optional: Add a left border for emphasis */
+  padding-left: 28px; /* Adjust padding to account for the border */
+}
   
   /* Media Query for Mobile Devices */
   @media (max-width: 768px) {
@@ -161,27 +174,18 @@
   }
   
   /* Media Query for Desktops/Laptops */
-  @media (min-width: 1201px) {
-    .navbar-tabs {
-      font-size: 18px; /* Adjust font size for desktops */
-    }
-  
+  @media (max-width: 1200px) {
+    .navbar-tabs,
     .sign-in-btn {
-      min-width: 150px; /* Increase width on large screens */
+      display: none; /* Hide tabs and button */
+    }
+  
+    .hamburger {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the hamburger */
     }
   }
   
-  /* Hide navbar items and sign-in button when menu is open */
-  .navbar-tabs.hide {
-    display: none;
-  }
-  
-  .sign-in-btn.hide {
-    display: none;
-  }
-  
-  /* Hide mobile menu by default */
-  .mobile-menu.hide {
-    display: none;
-  }
   

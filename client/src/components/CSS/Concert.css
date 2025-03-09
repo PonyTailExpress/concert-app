@@ -1,0 +1,70 @@
+/* Container for the concerts grid */
+.concerts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Two concerts per row */
+    gap: 20px;
+    margin: 20px auto; /* Center the grid */
+    max-width: 2000px; /* Optional: Set a max width for better readability */
+    padding: 0 60px; /* Add padding to prevent content from touching the edges */
+  }
+  
+  /* Styling for each concert item */
+  .concert-item {
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Image styling */
+  .concert-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    object-fit: cover; /* Ensures images are contained without distortion */
+  }
+  
+  /* Styling for the buttons and heart button */
+  .concert-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  /* "More Details" button */
+  .details-button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .details-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Heart button styling */
+  .heart-button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: transparent; /* No background */
+    color: blue;
+    border: none; /* Remove border */
+    border-radius: 5px;
+  }
+  
+  .heart-button:hover {
+    color: blue;
+  }
+  
+  /* Media query for mobile devices */
+  @media (max-width: 768px) {
+    .concerts-grid {
+      grid-template-columns: 1fr; /* One column per row on mobile */
+    }
+  }

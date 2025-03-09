@@ -14,7 +14,7 @@ const saltRounds = 10;
 // POST /auth/signup  (Register)
 //
 router.post("/signup", (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   console.log("req.body", req.body);
 
   // Check if the email or password or name is provided as an empty string
@@ -56,6 +56,7 @@ router.post("/signup", (req, res, next) => {
         name: name,
         email: email,
         password: hashedPassword,
+        role: role || false,
       };
 
       // Create a new user in the database
@@ -65,10 +66,10 @@ router.post("/signup", (req, res, next) => {
     .then((createdUser) => {
       // Deconstruct the newly created user object to omit the password
       // (we will not send the hash to the client)
-      const { _id, name, email } = createdUser;
+      const { _id, name, email, role } = createdUser;
 
       // Create a new object that doesn't expose the password
-      const user = { _id, name, email };
+      const user = { _id, name, email, role };
 
       // Send a json response containing the user object
       res.status(201).json({ user: user });
@@ -105,10 +106,10 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, email, name } = foundUser;
+        const { _id, email, name,  } = foundUser;
 
         // Create an object that will be set as the token payload
-        const payload = { _id, email, name };
+        const payload = { _id, email, name, role: foundUser.role };
 
         // Create and sign the token
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {

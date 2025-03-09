@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CSS/navbar.css'; // Import the CSS file
-
+import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
+import { Link } from 'react-router-dom'; // Use NavLink instead of Link
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -21,20 +22,39 @@ const Navbar = () => {
 
         {/* Tabs (Concerts & Artists) */}
         <div className={`navbar-tabs ${isMenuOpen ? 'hide' : ''}`}>
-          <a href="#concerts" className="navbar-tab">Concerts</a>
-          <a href="#artists" className="navbar-tab">Artists</a>
-          <a href="#about" className="navbar-tab">About</a>
+          <NavLink to="/about" className="navbar-tab" activeClassName="active">
+            About
+          </NavLink>
+          <NavLink to="/concerts" className="navbar-tab" activeClassName="active">
+            Concerts
+          </NavLink>
+          <NavLink to="/artists" className="navbar-tab" activeClassName="active">
+            Artists
+          </NavLink>
         </div>
 
         {/* Sign In Button */}
-        <button className={`sign-in-btn ${isMenuOpen ? 'hide' : ''}`}>Sign In</button>
-      </div> 
-       
+        <Link to="/signin">
+          <button className={`sign-in-btn ${isMenuOpen ? 'hide' : ''}`}>
+            Sign In
+          </button>
+        </Link>
+      </div>
+
       {/* Mobile Menu (Dropdown) */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : 'hide'}`}>
-        <a href="#concerts" className="mobile-menu-item">Concerts</a>
-        <a href="#artists" className="mobile-menu-item">Artists</a>
-        <a href="#signin" className="mobile-menu-item">Sign In</a>
+      <NavLink to="/about" className="mobile-menu-item" activeClassName="active">
+          About
+        </NavLink>
+        <NavLink to="/concerts" className="mobile-menu-item" activeClassName="active">
+          Concerts
+        </NavLink>
+        <NavLink to="/artists" className="mobile-menu-item" activeClassName="active">
+          Artists
+        </NavLink>
+        <NavLink to="/signin" className="mobile-menu-item" activeClassName="active">
+          Sign In
+        </NavLink>
       </div>
     </nav>
   );
