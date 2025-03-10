@@ -96,7 +96,7 @@
     top: 60px; /* Position it below the hamburger icon */
     left: 0; /* Align to the left side */
     background-color: #333;
-    width: 100%; /* Take up full width */
+    width: 20%; /* Take up full width */
     display: flex;
     flex-direction: column;
     align-items: flex-start;

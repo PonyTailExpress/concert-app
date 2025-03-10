@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Link } from "react-router-dom"
 import './CSS/navbar.css'; // Import the CSS file
 import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
-import { Link } from 'react-router-dom'; // Use NavLink instead of Link
-import { AuthProviderWrapper } from "../context/auth.context"
+import { AuthContext } from "../context/auth.context"
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { logout } = AuthProviderWrapper();
-  logout();
+  const { user, isLoggedIn, logOutUser } = useContext(AuthContext)
+
+  
+  
   // Toggle hamburger menu
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -24,39 +27,86 @@ const Navbar = () => {
 
         {/* Tabs (Concerts & Artists) */}
         <div className={`navbar-tabs ${isMenuOpen ? 'hide' : ''}`}>
-          <NavLink to="/" className="navbar-tab" activeClassName="active">
+          <NavLink to="/" className="navbar-tab" activeclassname="active">
             About
           </NavLink>
-          <NavLink to="/concerts" className="navbar-tab" activeClassName="active">
+          <NavLink to="/concerts" className="navbar-tab" activeclassname="active">
             Concerts
           </NavLink>
-          <NavLink to="/artists" className="navbar-tab" activeClassName="active">
+          <NavLink to="/artists" className="navbar-tab" activeclassname="active">
             Artists
           </NavLink>
         </div>
 
-        {/* Sign In Button */}
-        <Link to="/signin">
-          <button className={`sign-in-btn ${isMenuOpen ? 'hide' : ''}`}>
-            Sign In
+        {/* Sign In/Sign Out Button */}
+        {isLoggedIn ? (
+          <button
+            className={`sign-in-btn ${isMenuOpen ? 'hide' : ''}`}
+            onClick={logOutUser} // Calls logOutUser if logged in
+          >
+            Sign Out
           </button>
-        </Link>
+        ) : (
+          <Link to="/signin">
+            <button
+              className={`sign-in-btn ${isMenuOpen ? 'hide' : ''}`}
+            >
+              Sign In
+            </button>
+          </Link>
+        )}
       </div>
 
       {/* Mobile Menu (Dropdown) */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : 'hide'}`}>
-      <NavLink to="/" className="mobile-menu-item" activeClassName="active">
+        <NavLink to="/" className="mobile-menu-item" activeclassname="active">
           About
         </NavLink>
-        <NavLink to="/concerts" className="mobile-menu-item" activeClassName="active">
+        <NavLink to="/concerts" className="mobile-menu-item" activeclassname="active">
           Concerts
         </NavLink>
-        <NavLink to="/artists" className="mobile-menu-item" activeClassName="active">
+        <NavLink to="/artists" className="mobile-menu-item" activeclassname="active">
           Artists
         </NavLink>
-        <NavLink to="/signin" className="mobile-menu-item" activeClassName="active">
+        {isLoggedIn ? (
+        <NavLink to="/likedevents" className="mobile-menu-item" activeclassname="active">
+          Events you liked
+        </NavLink>
+        ) : null}
+        {isLoggedIn ? (
+        <NavLink to="/likedartists" className="mobile-menu-item" activeclassname="active">
+          Artists you liked
+        </NavLink>
+        ) : null}
+         {isLoggedIn && user.role ? (
+        <NavLink to="/addevent" className="mobile-menu-item" activeclassname="active">
+          Create an event
+        </NavLink>
+        ) : null}
+          {isLoggedIn && user.role ? (
+        <NavLink to="/createdevents" className="mobile-menu-item" activeclassname="active">
+          Events created by you
+        </NavLink>
+        ) : null}
+        {isLoggedIn ? (
+        <NavLink to="/userprofile" className="mobile-menu-item" activeclassname="active">
+          Your profile
+        </NavLink>
+        ) : null}
+        {isLoggedIn ? (
+      <div
+        className="mobile-menu-item"
+        onClick={logOutUser} // Trigger the logout function
+        style={{ cursor: "pointer" }} // Make it look clickable
+      >
+          Sign Out
+      </div>
+              ) : (
+        <NavLink to="/signin" className="mobile-menu-item" activeclassname="active">
           Sign In
         </NavLink>
+)}
+ 
       </div>
     </nav>
   );

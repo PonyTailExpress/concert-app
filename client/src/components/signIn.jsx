@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CSS/signIn.css";
+import { AuthContext } from "../context/auth.context"
 const API_URL = import.meta.env.VITE_API_URL
 const SignInForm = () => {
   const navigate = useNavigate();
+  const { storeToken, authenticateUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -37,7 +39,8 @@ const SignInForm = () => {
       console.log("Response:", response.data);
 
       // Save the token to localStorage or context (for authentication)
-      localStorage.setItem("token", response.data.token);
+      storeToken(response.data.authToken);
+      authenticateUser();
       setTimeout(() => {
         navigate("/concerts"); 
       }, 1000)

@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import './CSS/Concert.css'
+import { AuthContext } from "../context/auth.context"
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -9,8 +10,49 @@ function Concerts() {
   const [concerts, setConcerts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const { user, isLoggedIn } = useContext(AuthContext)
+  
+  const clickFunc = (id) => {
+    const storedToken = localStorage.getItem("authToken");
+    const userId = user._id;
 
-  useEffect(() => {
+    if (!storedToken || !userId) {
+      console.error("Auth token or user ID is missing.");
+      return;
+    }
+
+    setLoading(true);  // Set loading to true before the API call
+
+    axios
+      .patch(
+        `${API_URL}/auth/concerts/${id}`,  // API call to the concert endpoint
+        {
+          userId: userId,  // Pass userId in the request body
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`,  // Pass the auth token in the header
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("User updated successfully");
+        } else {
+          console.error("Failed to update user profile");
+        }
+        setLoading(false);  // End loading after response
+      })
+      .catch((error) => {
+        console.error("Error updating user profile:", error);
+        setError("Failed to update user profile");  // Handle error if something goes wrong
+        setLoading(false);  // End loading after error
+      });
+  };
+
+
+
+useEffect(() => {
     axios
       .get(`${API_URL}/concerts`)  
       .then((response) => {
@@ -55,7 +97,7 @@ function Concerts() {
 
               <button
                 className="heart-button"
-                onClick={() => console.log("Heart button clicked for", concert._id)}
+                onClick={() => isLoggedIn ? clickFunc(concert._id) : alert("Please log in to like concerts and/or artists")}
               >
                 ❤️
               </button>

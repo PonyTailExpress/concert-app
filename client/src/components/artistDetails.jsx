@@ -34,14 +34,14 @@ function ArtistDetails() {
       <h2>Artist Details</h2>
       <div className="concerts-grid">
         <div className="concert-item">
-            {/* Assuming there's an image_url 
+           
           <img
-            src={concert.image_url}
-            alt={concert.venue}
+            src={artist.artistImage}
+            alt={artist.name}
             className="concert-image"
-          /> */}
+          /> 
           <h3>{artist.name}</h3>
-          <p>{artist.genre}</p>  {/*Assuming there's a description or more details */}
+          <p>{artist.bio}</p>  {/*Assuming there's a description or more details */}
           <div className="concert-actions">
             <Link to="/artists">
               <button className="details-button">Back</button>
