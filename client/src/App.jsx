@@ -16,14 +16,14 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/" element={<About />} />
         <Route path="/concerts" element={<Concerts />} />
         <Route path="/concerts/:id" element={<ConcertDetails />} />
         <Route path="/artists" element={<Artists />} />
         <Route path="/artists/:id" element={<ArtistDetails />} />
-        <Route path="/about" element={<About />} />
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/signup" element={<SignUpForm />} />
-        
+        <Route path="*" element={<h1>404 Not Found</h1>} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

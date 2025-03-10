@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import './CSS/navbar.css'; // Import the CSS file
 import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
 import { Link } from 'react-router-dom'; // Use NavLink instead of Link
+import { AuthProviderWrapper } from "../context/auth.context"
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { logout } = AuthProviderWrapper();
+  logout();
   // Toggle hamburger menu
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -22,7 +24,7 @@ const Navbar = () => {
 
         {/* Tabs (Concerts & Artists) */}
         <div className={`navbar-tabs ${isMenuOpen ? 'hide' : ''}`}>
-          <NavLink to="/about" className="navbar-tab" activeClassName="active">
+          <NavLink to="/" className="navbar-tab" activeClassName="active">
             About
           </NavLink>
           <NavLink to="/concerts" className="navbar-tab" activeClassName="active">
@@ -43,7 +45,7 @@ const Navbar = () => {
 
       {/* Mobile Menu (Dropdown) */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : 'hide'}`}>
-      <NavLink to="/about" className="mobile-menu-item" activeClassName="active">
+      <NavLink to="/" className="mobile-menu-item" activeClassName="active">
           About
         </NavLink>
         <NavLink to="/concerts" className="mobile-menu-item" activeClassName="active">
