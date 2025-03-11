@@ -3,12 +3,17 @@ import { Link } from "react-router-dom"
 import './CSS/navbar.css'; // Import the CSS file
 import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
 import { AuthContext } from "../context/auth.context"
+import { useNavigate } from "react-router-dom"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    logOutUser()
+    navigate("/signin")
 
-  
+  }
   
   // Toggle hamburger menu
   const handleMenuToggle = () => {
@@ -42,7 +47,7 @@ const Navbar = () => {
         {isLoggedIn ? (
           <button
             className={`sign-in-btn ${isMenuOpen ? 'hide' : ''}`}
-            onClick={logOutUser} // Calls logOutUser if logged in
+            onClick={handleLogout} // Calls logOutUser if logged in
           >
             Sign Out
           </button>
@@ -96,7 +101,7 @@ const Navbar = () => {
         {isLoggedIn ? (
       <div
         className="mobile-menu-item"
-        onClick={logOutUser} // Trigger the logout function
+        onClick={handleLogout} // Trigger the logout function
         style={{ cursor: "pointer" }} // Make it look clickable
       >
           Sign Out

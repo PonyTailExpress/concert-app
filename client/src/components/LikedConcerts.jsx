@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 import './CSS/Concert.css'
 import { AuthContext } from "../context/auth.context"
 
@@ -13,6 +14,7 @@ function LikedConcerts() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, isLoggedIn } = useContext(AuthContext)
+  const navigate = useNavigate()
   
  
     const storedToken = localStorage.getItem("authToken");
@@ -21,6 +23,9 @@ function LikedConcerts() {
     if (!storedToken || !userId) {
       console.error("Auth token or user ID is missing.");
       return;
+    }
+    if (!isLoggedIn) {
+      navigate("/sigin")
     }
 
 useEffect(() => {
