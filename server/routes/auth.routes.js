@@ -5,6 +5,8 @@ const jwt = require("jsonwebtoken");
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 const User = require("../models/User");
+const Concert = require("../models/Concert");
+const Artist = require("../models/Artist");
 
 const router = express.Router();
 
@@ -189,6 +191,98 @@ router.patch("/artists/:id", isAuthenticated, async (req, res) => {
     res
       .status(500)
       .json({ message: "Error updating user", error: err.message });
+  }
+});
+
+router.get("/likedconcerts/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params; // ID of the artist to like
+   
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const concerts = await Concert.find({ _id: { $in: user.concertLikes } });
+    if (!concerts) {
+      return res.status(404).json({ message: "No concert is liked by you" });
+    }
+
+    res.status(200).json(concerts);
+  } 
+
+   
+   catch (err) {
+    console.error("Error getting liked concerts by :", err);
+    res
+      .status(500)
+      .json({ message: "Error finding liked concerts", error: err.message });
+  }
+});
+
+router.get("/likedartists/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params; // ID of the artist to like
+   
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const artists = await Artist.find({ _id: { $in: user.artistLikes } });
+    if (!artists) {
+      return res.status(404).json({ message: "No artist is liked by you" });
+    }
+
+    res.status(200).json(artists);
+  } 
+
+   
+   catch (err) {
+    console.error("Error getting liked artists by user :", err);
+    res
+      .status(500)
+      .json({ message: "Error finding liked artists", error: err.message });
+  }
+});
+
+router.get("/createdconcerts/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params; 
+   
+
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const concerts = await Concert.find({ _id: { $in: user.createdConcerts } });
+    if (!concerts) {
+      return res.status(404).json({ message: "No concert is created by you" });
+    }
+
+    res.status(200).json(concerts);
+  } 
+
+   
+   catch (err) {
+    console.error("Error getting created concerts by :", err);
+    res
+      .status(500)
+      .json({ message: "Error finding created concerts", error: err.message });
+  }
+});
+
+router.delete("/user/:id", isAuthenticated, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findByIdAndDelete(id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error("Error deleting user:", err);
+    res.status(500).json({ message: "Error deleting user", error: err.message });
   }
 });
 
