@@ -108,7 +108,7 @@ router.post("/login", (req, res, next) => {
 
       if (passwordCorrect) {
         // Deconstruct the user object to omit the password
-        const { _id, email, name,  } = foundUser;
+        const { _id, email, name } = foundUser;
 
         // Create an object that will be set as the token payload
         const payload = { _id, email, name, role: foundUser.role };
@@ -196,7 +196,6 @@ router.patch("/artists/:id", isAuthenticated, async (req, res) => {
 
 router.get("/likedconcerts/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params; // ID of the artist to like
-   
 
   try {
     const user = await User.findById(id);
@@ -209,10 +208,7 @@ router.get("/likedconcerts/:id", isAuthenticated, async (req, res) => {
     }
 
     res.status(200).json(concerts);
-  } 
-
-   
-   catch (err) {
+  } catch (err) {
     console.error("Error getting liked concerts by :", err);
     res
       .status(500)
@@ -222,7 +218,6 @@ router.get("/likedconcerts/:id", isAuthenticated, async (req, res) => {
 
 router.get("/likedartists/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params; // ID of the artist to like
-   
 
   try {
     const user = await User.findById(id);
@@ -235,10 +230,7 @@ router.get("/likedartists/:id", isAuthenticated, async (req, res) => {
     }
 
     res.status(200).json(artists);
-  } 
-
-   
-   catch (err) {
+  } catch (err) {
     console.error("Error getting liked artists by user :", err);
     res
       .status(500)
@@ -247,8 +239,7 @@ router.get("/likedartists/:id", isAuthenticated, async (req, res) => {
 });
 
 router.get("/createdconcerts/:id", isAuthenticated, async (req, res) => {
-  const { id } = req.params; 
-   
+  const { id } = req.params;
 
   try {
     const user = await User.findById(id);
@@ -261,10 +252,7 @@ router.get("/createdconcerts/:id", isAuthenticated, async (req, res) => {
     }
 
     res.status(200).json(concerts);
-  } 
-
-   
-   catch (err) {
+  } catch (err) {
     console.error("Error getting created concerts by :", err);
     res
       .status(500)
@@ -282,7 +270,9 @@ router.delete("/user/:id", isAuthenticated, async (req, res) => {
     res.status(200).json({ message: "User deleted successfully" });
   } catch (err) {
     console.error("Error deleting user:", err);
-    res.status(500).json({ message: "Error deleting user", error: err.message });
+    res
+      .status(500)
+      .json({ message: "Error deleting user", error: err.message });
   }
 });
 

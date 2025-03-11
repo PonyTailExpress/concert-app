@@ -1,0 +1,99 @@
+/* addConcert.css */
+.add-concert-form {
+    max-width: 400px;
+    width: 90%;
+    /* Ensure it doesn't overflow on small screens */
+    margin: 0 auto;
+    /* Center the form horizontally */
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Center content vertically */
+    align-items: center;
+    /* Center content horizontally */
+    position: absolute;
+    /* Position the form absolutely */
+    top: 50%;
+    /* Move the form down by 50% of the viewport height */
+    left: 50%;
+    /* Move the form right by 50% of the viewport width */
+    transform: translate(-50%, -50%);
+    /* Center the form precisely */
+    box-sizing: border-box;
+    /* Include padding in width and height */
+}
+
+.add-concert-form h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 1rem;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background: #0056b3;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+    .add-concert-form {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .add-concert-form h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-group input {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .submit-button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
