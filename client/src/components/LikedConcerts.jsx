@@ -1,54 +1,50 @@
-import { useState, useEffect, useContext } from "react"
-import { Link } from "react-router-dom"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
-import './CSS/Concert.css'
-import { AuthContext } from "../context/auth.context"
+import { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./CSS/Concert.css";
+import { AuthContext } from "../context/auth.context";
 
-
-const API_URL = import.meta.env.VITE_API_URL
-
+const API_URL = import.meta.env.VITE_API_URL;
 
 function LikedConcerts() {
-  const [concerts, setConcerts] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const { user, isLoggedIn } = useContext(AuthContext)
-  const navigate = useNavigate()
-  
- 
-    const storedToken = localStorage.getItem("authToken");
-    const userId = user._id;
+  const [concerts, setConcerts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { user, isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    if (!storedToken || !userId) {
-      console.error("Auth token or user ID is missing.");
+  const storedToken = localStorage.getItem("authToken");
+  const userId = user?._id;
+
+  useEffect(() => {
+    if (!userId) {
       return;
     }
-    if (!isLoggedIn) {
-      navigate("/sigin")
-    }
 
-useEffect(() => {
     axios
-      .get(`${API_URL}/auth/likedconcerts/${userId}`, {headers: { Authorization: `Bearer ${storedToken}` } })  
+      .get(`${API_URL}/auth/likedconcerts/${userId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
-      if (Array.isArray(response.data)) {
-          setConcerts(response.data) 
+        console.log(response.data);
+        if (Array.isArray(response.data)) {
+          setConcerts(response.data);
         } else {
-          console.error('API response is not an array')
-          setConcerts([])  
+          console.error("API response is not an array");
+          setConcerts([]);
         }
-        setLoading(false) 
+        setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching concerts:', error)
-        setError('Failed to load concerts')
-        setLoading(false)
-      })
-  }, [])
+        console.error("Error fetching concerts:", error);
+        setError("Failed to load concerts");
+        setLoading(false);
+      });
+  }, [userId]);
 
-  if (loading) return <p>Loading concerts...</p>
-  if (error) return <p>Error: {error}</p>
+  if (loading) return <p>Loading concerts...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div>
@@ -65,7 +61,7 @@ useEffect(() => {
               className="concert-image"
             />
             <h3>{concert.venue}</h3>
-            
+
             <div className="concert-actions">
               <Link to={`/concerts/${concert._id}`}>
                 <button className="details-button">More Details</button>
@@ -75,7 +71,7 @@ useEffect(() => {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default LikedConcerts
+export default LikedConcerts;
