@@ -8,6 +8,7 @@ import ConcertDetails from './components/concertDetails';
 import ArtistDetails from './components/artistDetails';
 import SignInForm from './components/signIn';
 import SignUpForm from './components/signUp';
+import LikedConcerts from './components/LikedConcerts';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +24,7 @@ function App() {
         <Route path="/artists/:id" element={<ArtistDetails />} />
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/likedconcerts" element={<LikedConcerts />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
         {/* Add more routes as needed */}
       </Routes>

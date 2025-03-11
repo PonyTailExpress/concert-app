@@ -10,7 +10,9 @@ function Artists() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, isLoggedIn } = useContext(AuthContext)
-  const clickFunc = (id) => {
+
+  const clickFunc = (id, e) => {
+    e.preventDefault()
     const storedToken = localStorage.getItem("authToken");
     const userId = user._id;
 
@@ -96,7 +98,7 @@ function Artists() {
 
               <button
                 className="heart-button"
-                onClick={() => isLoggedIn ? clickFunc(artist._id) : alert("Please log in to like concerts and/or artists")}
+                onClick={(e) => isLoggedIn ? clickFunc(artist._id, e) : alert("Please log in to like concerts and/or artists")}
               >
                 ❤️
               </button>

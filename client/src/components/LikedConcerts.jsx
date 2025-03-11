@@ -6,14 +6,15 @@ import { AuthContext } from "../context/auth.context"
 
 
 const API_URL = import.meta.env.VITE_API_URL
-function Concerts() {
+
+
+function LikedConcerts() {
   const [concerts, setConcerts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, isLoggedIn } = useContext(AuthContext)
   
-  const clickFunc = (id, e) => {
-    e.preventDefault()
+ 
     const storedToken = localStorage.getItem("authToken");
     const userId = user._id;
 
@@ -22,40 +23,9 @@ function Concerts() {
       return;
     }
 
-    setLoading(true);  // Set loading to true before the API call
-
-    axios
-      .patch(
-        `${API_URL}/auth/concerts/${id}`,  // API call to the concert endpoint
-        {
-          userId: userId,  // Pass userId in the request body
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${storedToken}`,  // Pass the auth token in the header
-          },
-        }
-      )
-      .then((response) => {
-        if (response.status === 200) {
-          console.log("User updated successfully");
-        } else {
-          console.error("Failed to update user profile");
-        }
-        setLoading(false);  // End loading after response
-      })
-      .catch((error) => {
-        console.error("Error updating user profile:", error);
-        setError("Failed to update user profile");  // Handle error if something goes wrong
-        setLoading(false);  // End loading after error
-      });
-  };
-
-
-
 useEffect(() => {
     axios
-      .get(`${API_URL}/concerts`)  
+      .get(`${API_URL}/auth/likedconcerts/${userId}`, {headers: { Authorization: `Bearer ${storedToken}` } })  
       .then((response) => {
       if (Array.isArray(response.data)) {
           setConcerts(response.data) 
@@ -95,13 +65,6 @@ useEffect(() => {
               <Link to={`/concerts/${concert._id}`}>
                 <button className="details-button">More Details</button>
               </Link>
-
-              <button
-                className="heart-button"
-                onClick={(e) => isLoggedIn ? clickFunc(concert._id, e) : alert("Please log in to like concerts and/or artists")}
-              >
-                ❤️
-              </button>
             </div>
           </div>
         ))}
@@ -110,4 +73,4 @@ useEffect(() => {
   )
 }
 
-export default Concerts
+export default LikedConcerts

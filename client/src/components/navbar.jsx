@@ -69,7 +69,7 @@ const Navbar = () => {
           Artists
         </NavLink>
         {isLoggedIn ? (
-        <NavLink to="/likedevents" className="mobile-menu-item" activeclassname="active">
+        <NavLink to="/likedconcerts" className="mobile-menu-item" activeclassname="active">
           Events you liked
         </NavLink>
         ) : null}
