@@ -14,6 +14,9 @@ const artistSchema = new Schema({
   bio: {
     type: String,
   },
+  artistImage: {
+    type: String,
+  },
   concerts: [
     {
       type: Schema.Types.ObjectId,

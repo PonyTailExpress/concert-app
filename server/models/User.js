@@ -27,6 +27,12 @@ const userSchema = new Schema({
       ref: "Artist",
     },
   ],
+  createdConcerts: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Concert",
+    },
+  ],
   role: {
     type: Boolean,
     default: false,

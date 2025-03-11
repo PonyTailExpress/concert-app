@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 import './CSS/Concert.css'
 import { AuthContext } from "../context/auth.context"
 
@@ -11,7 +12,7 @@ function Concerts() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const { user, isLoggedIn } = useContext(AuthContext)
-  
+  const navigate = useNavigate()
   const clickFunc = (id, e) => {
     e.preventDefault()
     const storedToken = localStorage.getItem("authToken");
@@ -98,7 +99,7 @@ useEffect(() => {
 
               <button
                 className="heart-button"
-                onClick={(e) => isLoggedIn ? clickFunc(concert._id, e) : alert("Please log in to like concerts and/or artists")}
+                onClick={(e) => isLoggedIn ? clickFunc(concert._id, e) : navigate("/signin")}
               >
                 ❤️
               </button>

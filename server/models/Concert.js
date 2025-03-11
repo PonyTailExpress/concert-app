@@ -12,7 +12,7 @@ const concertSchema = new Schema({
     unique: true,
     required: true,
   },
-  concertImage: {
+  image_url: {
     type: String,
   },
   artists: {

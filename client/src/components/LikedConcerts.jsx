@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import "./CSS/Concert.css";
 import { AuthContext } from "../context/auth.context";
 
@@ -11,8 +10,8 @@ function LikedConcerts() {
   const [concerts, setConcerts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user, isLoggedIn } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  
 
   const storedToken = localStorage.getItem("authToken");
   const userId = user?._id;

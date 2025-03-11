@@ -3,9 +3,10 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 require("dotenv").config(); // To load environment variables
-
+const { isAuthenticated } = require("./middleware/jwt.middleware");
 const Concert = require("./models/Concert");
 const Artist = require("./models/Artist");
+const User = require("./models/User");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -32,18 +33,29 @@ mongoose
 
 // CRUD operations for Concerts
 
-app.post("/concerts", async (req, res) => {
+app.post("/concerts", isAuthenticated, async (req, res) => {
   try {
-    // Use await for the create operation
+    const userIdFromHeader = req.payload._id;
+
+    if (!userIdFromHeader) {
+      return res.status(400).json({ message: "User ID is required in headers" });
+    }
+
     const concert = await Concert.create(req.body);
+
+    await User.findByIdAndUpdate(
+      userIdFromHeader,
+      { $push: { createdConcerts: concert._id } },
+      { new: true }
+    );
+
     res.status(201).json(concert);
   } catch (err) {
-    console.error("Error creating concert:", err); // Log the error
-    res
-      .status(400)
-      .json({ message: "Error creating concert", error: err.message });
+    console.error("Error creating concert:", err);
+    res.status(400).json({ message: "Error creating concert", error: err.message });
   }
 });
+
 
 app.get("/concerts", async (req, res) => {
   try {
