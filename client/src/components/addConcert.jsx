@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CSS/addConcert.css";
-import { AuthContext } from "../context/auth.context";
 
-// Load Cloudinary configuration from environment variables
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${
   import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
 }/image/upload`;
@@ -21,11 +19,13 @@ const AddConcert = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null); // Stores image preview
-  const { user } = useContext(AuthContext);
+  const [previewImage, setPreviewImage] = useState(null);
   const storedToken = localStorage.getItem("authToken");
 
-  // Handle input change for text fields
+  // Check for authentication when component mounts
+ 
+ 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -34,7 +34,6 @@ const AddConcert = () => {
     });
   };
 
-  // Handle file selection and preview
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setImageFile(file);
@@ -42,13 +41,12 @@ const AddConcert = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPreviewImage(reader.result); // Show image preview
+        setPreviewImage(reader.result);
       };
       reader.readAsDataURL(file);
     }
   };
 
-  // Upload image to Cloudinary and get URL
   const uploadImage = async (file) => {
     try {
       const formData = new FormData();
@@ -56,21 +54,19 @@ const AddConcert = () => {
       formData.append("upload_preset", UPLOAD_PRESET);
 
       const response = await axios.post(CLOUDINARY_URL, formData);
-      return response.data.url; // Return Cloudinary URL
+      return response.data.url;
     } catch (error) {
       console.error("Error uploading image:", error);
       setError("Failed to upload image.");
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Upload image first
     const imageUrl = await uploadImage(imageFile);
     if (imageUrl) {
-      formData.image_url = imageUrl; // Attach Cloudinary URL
+      formData.image_url = imageUrl;
     }
 
     try {
@@ -89,10 +85,12 @@ const AddConcert = () => {
     }
   };
 
+  // Error message display
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="add-concert-form">
       <h2>Add New Concert</h2>
-      {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -106,17 +104,6 @@ const AddConcert = () => {
           />
         </div>
 
-        {/* <div className="form-group">
-          <label htmlFor="description">Description:</label>
-          <textarea
-            id="description"
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div> */}
-
         <div className="form-group">
           <label htmlFor="date">Date:</label>
           <input
@@ -128,18 +115,6 @@ const AddConcert = () => {
             required
           />
         </div>
-
-        {/* <div className="form-group">
-          <label htmlFor="location">Location:</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            required
-          />
-        </div> */}
 
         <div className="form-group">
           <label htmlFor="image">Concert Image:</label>

@@ -102,7 +102,7 @@ app.put("/concerts/:id", async (req, res) => {
   }
 });
 
-app.delete("/concerts/:id", async (req, res) => {
+app.delete("/concerts/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
   try {
     const concert = await Concert.findByIdAndDelete(id);

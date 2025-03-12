@@ -11,6 +11,8 @@ import SignUpForm from "./components/signUp";
 import LikedConcerts from "./components/LikedConcerts";
 import LikedArtists from "./components/LikedArtists";
 import AddConcert from "./components/AddConcert";
+import CreatedConcerts from "./components/createdConcerts";
+import ProtectedRoute from "./components/protectedRoute";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,11 +28,21 @@ function App() {
         <Route path="/artists/:id" element={<ArtistDetails />} />
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/likedconcerts" element={<LikedConcerts />} />
-        <Route path="/likedartists" element={<LikedArtists />} />
-        <Route path="/addconcert" element={<AddConcert />} />
+  
+        
+         
+         {/* Add more routes as needed above */}
+  
+        {/* Protected Routes */}
+        
+        <Route path="/likedconcerts" element={<ProtectedRoute><LikedConcerts /></ProtectedRoute>} />
+        <Route path="/likedartists" element={<ProtectedRoute><LikedArtists /></ProtectedRoute>} />
+        <Route path="/addconcert" element={<ProtectedRoute><AddConcert /></ProtectedRoute>} />
+        <Route path="/createdevents" element={<ProtectedRoute><CreatedConcerts /></ProtectedRoute>} />
+
+        {/* Catch-all route for 404 */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
-        {/* Add more routes as needed */}
+        
       </Routes>
     </Router>
   );

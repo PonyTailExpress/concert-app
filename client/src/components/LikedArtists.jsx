@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./CSS/Concert.css";
 import { AuthContext } from "../context/auth.context";
@@ -12,9 +12,11 @@ function LikedArtists() {
   const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
   
-
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem("authToken");
   const userId = user?._id;
+
+  
 
   useEffect(() => {
     if (!userId) {
@@ -42,7 +44,7 @@ function LikedArtists() {
       });
   }, [userId]);
 
-  if (loading) return <p>Loading concerts...</p>;
+  if (loading) return <p>Loading Artists...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
