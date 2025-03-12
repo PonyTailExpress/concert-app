@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./CSS/Concert.css";
+import "../styles/concerts.css";
 import { AuthContext } from "../context/auth.context";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -11,12 +11,10 @@ function LikedArtists() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
-  
+
   const navigate = useNavigate();
   const storedToken = localStorage.getItem("authToken");
   const userId = user?._id;
-
-  
 
   useEffect(() => {
     if (!userId) {

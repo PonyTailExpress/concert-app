@@ -1,16 +1,15 @@
-import { useState, useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
-import axios from "axios"
-import './CSS/Concert.css'
+import { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import "../styles/concerts.css";
 
-
-const API_URL = import.meta.env.VITE_API_URL
+const API_URL = import.meta.env.VITE_API_URL;
 function ConcertDetails() {
-  const [concert, setConcert] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const { id } = useParams()
-  console.log(id)
+  const [concert, setConcert] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
+  console.log(id);
   useEffect(() => {
     axios
       .get(`${API_URL}/concerts/${id}`)
@@ -19,15 +18,15 @@ function ConcertDetails() {
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching concert:', error);
-        setError('Failed to load concert details');
+        console.error("Error fetching concert:", error);
+        setError("Failed to load concert details");
         setLoading(false);
       });
   }, [id]);
 
-  if (loading) return <p>Loading concerts...</p>
-  if (error) return <p>Error: {error}</p>
-  if (!concert) return <p>No concert found.</p>
+  if (loading) return <p>Loading concerts...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!concert) return <p>No concert found.</p>;
 
   return (
     <div>
@@ -49,7 +48,7 @@ function ConcertDetails() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ConcertDetails
+export default ConcertDetails;

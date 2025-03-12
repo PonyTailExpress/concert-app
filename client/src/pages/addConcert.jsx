@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./CSS/addConcert.css";
+import "../styles/addConcert.css";
 
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${
   import.meta.env.VITE_CLOUDINARY_CLOUD_NAME
@@ -23,8 +23,6 @@ const AddConcert = () => {
   const storedToken = localStorage.getItem("authToken");
 
   // Check for authentication when component mounts
- 
- 
 
   const handleChange = (e) => {
     const { name, value } = e.target;

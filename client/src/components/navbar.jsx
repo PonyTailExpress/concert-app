@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-import "./CSS/navbar.css"; // Import the CSS file
+import "../styles/navbar.css"; // Import the CSS file
 import { NavLink } from "react-router-dom"; // Use NavLink instead of Link
 import { AuthContext } from "../context/auth.context";
 import { useNavigate } from "react-router-dom";

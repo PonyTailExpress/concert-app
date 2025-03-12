@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom"
-import "./CSS/signIn.css";
+import { useNavigate } from "react-router-dom";
+import "../styles/signIn.css";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -48,8 +48,8 @@ const SignUpForm = () => {
       setError("");
       console.log("Response:", response.data);
       setTimeout(() => {
-        navigate("/signin"); 
-      }, 1000)
+        navigate("/signin");
+      }, 1000);
     } catch (err) {
       setError("Sign-up failed. Please try again.");
       console.error("Error:", err);
@@ -104,7 +104,7 @@ const SignUpForm = () => {
               checked={formData.role}
               onChange={handleChange}
             />
-            Do you like to post new events? 
+            Do you like to post new events?
           </label>
         </div>
         <button type="submit" className="submit-button">

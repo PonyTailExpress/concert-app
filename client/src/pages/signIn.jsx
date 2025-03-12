@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./CSS/signIn.css";
-import { AuthContext } from "../context/auth.context"
-const API_URL = import.meta.env.VITE_API_URL
+import "../styles/signIn.css";
+import { AuthContext } from "../context/auth.context";
+const API_URL = import.meta.env.VITE_API_URL;
 const SignInForm = () => {
   const navigate = useNavigate();
   const { storeToken, authenticateUser } = useContext(AuthContext);
@@ -42,8 +42,8 @@ const SignInForm = () => {
       storeToken(response.data.authToken);
       authenticateUser();
       setTimeout(() => {
-        navigate("/concerts"); 
-      }, 1000)
+        navigate("/concerts");
+      }, 1000);
     } catch (err) {
       setError("Sign-in failed. Please check your credentials.");
       console.error("Error:", err);
@@ -81,10 +81,10 @@ const SignInForm = () => {
         <button type="submit" className="submit-button">
           Sign in
         </button>
-        <Link to='/signup'>
-        <button type="submit" className="submit-button">
-          Sign up
-        </button>
+        <Link to="/signup">
+          <button type="submit" className="submit-button">
+            Sign up
+          </button>
         </Link>
       </form>
     </div>

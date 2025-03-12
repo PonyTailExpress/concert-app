@@ -2,6 +2,14 @@
 Hamid and David's Music Concert MVP
 
 
+// Cloudinary credentials //
+Cloud name: dvdlnv6or
+
+API KEy: 632917329567112
+
+API Secret: xHD3uVsmiqHD2-vDTRuGGd3KZdA
+
+
 Requirement
 
 - Auth (register, login, logout)
