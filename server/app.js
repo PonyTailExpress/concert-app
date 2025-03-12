@@ -82,7 +82,7 @@ app.get("/concerts/:id", async (req, res) => {
   }
 });
 
-app.put("/concerts/:id", async (req, res) => {
+app.put("/concerts/:id", isAuthenticated, async (req, res) => {
   const { id } = req.params;
   try {
     const concert = await Concert.findByIdAndUpdate(id, req.body, {

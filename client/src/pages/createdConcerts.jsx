@@ -53,7 +53,7 @@ function CreatedConcerts() {
         console.log("Concert deleted successfully");
         setTimeout(() => {
           navigate("/addconcert");
-        }, 2000);
+        }, 500);
       }
     } catch (error) {
       console.error("Error deleting the concert:", error);

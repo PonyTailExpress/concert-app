@@ -12,6 +12,7 @@ import LikedConcerts from "./pages/LikedConcerts";
 import LikedArtists from "./pages/LikedArtists";
 import AddConcert from "./pages/addConcert";
 import CreatedConcerts from "./pages/createdConcerts";
+import EditConcert from "./pages/editConcert";
 import ProtectedRoute from "./components/protectedRoute";
 
 function App() {
@@ -62,6 +63,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CreatedConcerts />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/createdevents/:id"
+          element={
+            <ProtectedRoute>
+              <EditConcert />
             </ProtectedRoute>
           }
         />

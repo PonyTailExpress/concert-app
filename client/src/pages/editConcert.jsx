@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "../styles/addConcert.css";
 
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${
@@ -9,8 +10,9 @@ const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${
 const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 const API_URL = import.meta.env.VITE_API_URL;
 
-const AddConcert = () => {
+const EditConcert = () => {
   const navigate = useNavigate();
+  const { id } = useParams(); // Getting the concert id from the route params
   const [formData, setFormData] = useState({
     venue: "",
     date: "",
@@ -22,7 +24,27 @@ const AddConcert = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const storedToken = localStorage.getItem("authToken");
 
-  // Check for authentication when component mounts
+  useEffect(() => {
+    // Fetch the concert details from the backend when the component mounts
+    const fetchConcertData = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/concerts/${id}`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
+        setFormData({
+          venue: response.data.venue,
+          date: response.data.date,
+          image_url: response.data.image_url,
+        });
+        setPreviewImage(response.data.image_url);
+      } catch (error) {
+        setError("Failed to fetch concert details.");
+        console.error("Error fetching concert:", error);
+      }
+    };
+
+    fetchConcertData();
+  }, [id, storedToken]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,23 +84,28 @@ const AddConcert = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const imageUrl = await uploadImage(imageFile);
-    if (imageUrl) {
-      formData.image_url = imageUrl;
+    let imageUrl = formData.image_url;
+    if (imageFile) {
+      imageUrl = await uploadImage(imageFile);
+      if (!imageUrl) return;
     }
 
     try {
-      await axios.post(`${API_URL}/concerts`, formData, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
-      setSuccess("Concert added successfully!");
+      await axios.put(
+        `${API_URL}/concerts/${id}`,
+        { ...formData, image_url: imageUrl },
+        {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        }
+      );
+      setSuccess("Concert updated successfully!");
       setError("");
 
       setTimeout(() => {
         navigate("/createdevents");
       }, 1000);
     } catch (err) {
-      setError("Failed to add concert. Please try again.");
+      setError("Failed to update concert. Please try again.");
       console.error("Error:", err);
     }
   };
@@ -88,7 +115,7 @@ const AddConcert = () => {
 
   return (
     <div className="add-concert-form">
-      <h2>Add New Concert</h2>
+      <h2>Edit Concert</h2>
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -133,11 +160,16 @@ const AddConcert = () => {
         </div>
 
         <button type="submit" className="submit-button">
-          Add Concert
+          Update Concert
         </button>
+        <Link to="/createdevents">
+        <button type="submit" className="submit-button">
+          Back
+        </button>
+        </Link>
       </form>
     </div>
   );
 };
 
-export default AddConcert;
+export default EditConcert;
