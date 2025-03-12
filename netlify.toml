@@ -1,6 +1,7 @@
 [build]
-command = "npm install && npm run build"  # Change according to your setup
-publish = "client/build"  # Path to frontend build folder
+command = "npm run build"
+publish = "client/dist"
+
 
 [functions]
 directory = "functions"  # Serverless functions folder

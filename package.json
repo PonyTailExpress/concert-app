@@ -1,0 +1,14 @@
+{
+  "name": "concert-app",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "postinstall": "cd server && npm install",
+    "start": "cd server && node server.js",
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && nodemon server.js\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  }
+}
