@@ -14,6 +14,7 @@ import AddConcert from "./pages/addConcert";
 import CreatedConcerts from "./pages/createdConcerts";
 import EditConcert from "./pages/editConcert";
 import ProtectedRoute from "./components/protectedRoute";
+import UserProfile from "./pages/userProfile";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -74,7 +75,14 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/userprofile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+         />
         {/* Catch-all route for 404 */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
