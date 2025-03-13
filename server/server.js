@@ -1,0 +1,1 @@
+const FRONTEND_URL = process.env.ORIGIN || "http://localhost:5173/";

@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
-require("dotenv").config(); // To load environment variables
+require("dotenv").config(); 
 const { isAuthenticated } = require("./middleware/jwt.middleware");
 const Concert = require("./models/Concert");
 const Artist = require("./models/Artist");
@@ -11,12 +11,21 @@ const User = require("./models/User");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+
+const corsOptions = {
+  origin: process.env.ORIGIN,  
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+};
+
+app.use(cors(corsOptions)); 
 app.use(morgan("dev"));
-app.use(express.json()); // For parsing JSON bodies
+app.use(express.json()); 
 
 app.use("/auth", require("./routes/auth.routes"));
+
+
+
+
 
 // Connect to MongoDB
 mongoose
