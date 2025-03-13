@@ -1,18 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/signIn.css";
-import { AuthContext } from "../context/auth.context";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const SignInForm = () => {
+const ForgotPassword = () => {
   const navigate = useNavigate();
-  const { storeToken, authenticateUser } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: "",
-    password: "",
+    newPassword: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -29,32 +27,30 @@ const SignInForm = () => {
     e.preventDefault();
 
     // Basic validation
-    if (!formData.email || !formData.password) {
-      setError("Email and password are required.");
+    if (!formData.email || !formData.newPassword) {
+      setError("Email and new password are required.");
       return;
     }
 
     try {
-      const response = await axios.post(`${API_URL}/auth/login`, formData);
-      setSuccess("Sign-in successful!");
+      const response = await axios.put(`${API_URL}/auth/login`, formData);
+      setSuccess("Password updated successfully!");
       setError("");
       console.log("Response:", response.data);
 
-      // Save the token to localStorage or context (for authentication)
-      storeToken(response.data.authToken);
-      authenticateUser();
+      // Redirect to the sign-in page after a delay
       setTimeout(() => {
-        navigate("/concerts");
+        navigate("/signin");
       }, 1000);
     } catch (err) {
-      setError("Sign-in failed. Please check your credentials.");
+      setError("Failed to update password. Please check your email.");
       console.error("Error:", err);
     }
   };
 
   return (
     <div className="signin-form">
-      <h2>Sign In</h2>
+      <h2>Forgot Password</h2>
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit}>
@@ -70,31 +66,27 @@ const SignInForm = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="newPassword">New Password:</label>
           <input
             type="password"
-            id="password"
-            name="password"
-            value={formData.password}
+            id="newPassword"
+            name="newPassword"
+            value={formData.newPassword}
             onChange={handleChange}
             required
           />
         </div>
         <button type="submit" className="submit-button">
-          Sign in
+          Update Password
         </button>
-        <Link to="/signup">
-          <button type="submit" className="submit-button">
-            Sign up
+        <Link to="/signin">
+          <button type="button" className="submit-button">
+            Back
           </button>
         </Link>
       </form>
-      {/* Forgot Password Link */}
-      <div className="forgot-password-link">
-        <Link to="/forgotpassword">Forgot Password?</Link>
-      </div>
     </div>
   );
 };
 
-export default SignInForm;
+export default ForgotPassword;

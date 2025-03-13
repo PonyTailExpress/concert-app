@@ -120,6 +120,24 @@
     margin: 0; /* Remove default margin */
   }
 
+  /* Forgot Password Link Styling */
+.forgot-password-link {
+  margin-top: 15px; /* Add some space above the link */
+  text-align: center; /* Center the link */
+}
+
+.forgot-password-link a {
+  color: #007bff; /* Blue color for the link */
+  text-decoration: none; /* Remove underline */
+  font-size: 0.9rem; /* Smaller font size */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.forgot-password-link a:hover {
+  color: #0056b3; /* Darker blue on hover */
+  text-decoration: underline; /* Add underline on hover */
+}
+
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
   .signup-form,

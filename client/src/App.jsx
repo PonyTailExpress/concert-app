@@ -15,6 +15,7 @@ import CreatedConcerts from "./pages/createdConcerts";
 import EditConcert from "./pages/editConcert";
 import ProtectedRoute from "./components/protectedRoute";
 import UserProfile from "./pages/userProfile";
+import ForgotPassword from "./pages/forgotPassword";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,6 +31,7 @@ function App() {
         <Route path="/artists/:id" element={<ArtistDetails />} />
         <Route path="/signin" element={<SignInForm />} />
         <Route path="/signup" element={<SignUpForm />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         {/* Add more routes as needed above */}
 
