@@ -46,7 +46,7 @@ function LikedConcerts() {
 
   return (
     <div>
-      {!concerts ? (
+      {concerts.length == 0 ? (
         <h2>No liked concerts</h2>
       ) : (
         <div>

@@ -47,7 +47,7 @@ function LikedArtists() {
 
   return (
     <div>
-      {!artists ? (
+      {artists.length == 0 ? (
         <h2>No liked artists</h2>
       ) : (
         <div>
