@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css"; // Import the CSS file
 import { NavLink } from "react-router-dom"; // Use NavLink instead of Link
@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const menuRef = useRef(null);
   const handleLogout = () => {
     logOutUser();
     navigate("/signin");
@@ -19,9 +20,19 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false); // Close the menu if the click is outside
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside); // Cleanup on unmount
+  }, []);
+
   return (
     <nav className="navbar">
-      <div className="navbar-container">
+     <div className="navbar-container" ref={menuRef}>
         {/* Hamburger Menu */}
         <div className="hamburger" onClick={handleMenuToggle}>
           <div className={`bar ${isMenuOpen ? "open" : ""}`}></div>
