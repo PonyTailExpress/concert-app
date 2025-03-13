@@ -132,6 +132,45 @@ router.post("/login", (req, res, next) => {
     });
 });
 
+// change password
+
+router.put("/login", (req, res, next) => {
+  const { email, newPassword } = req.body;
+
+  if (!email || !newPassword) {
+    res.status(400).json({ message: "Provide email and new password." });
+    return;
+  }
+
+  User.findOne({ email })
+    .then((foundUser) => {
+      if (!foundUser) {
+        res.status(404).json({ message: "User not found." });
+        return;
+      }
+
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(newPassword, salt);
+
+      User.findByIdAndUpdate(
+        foundUser._id,
+        { password: hashedPassword },
+        { new: true }
+      )
+        .then((updatedUser) => {
+          res.status(200).json({ message: "Password updated successfully." });
+        })
+        .catch((err) => {
+          console.log("Error updating password...\n\n", err);
+          res.status(500).json({ message: "Internal Server Error" });
+        });
+    })
+    .catch((err) => {
+      console.log("Error finding user...\n\n", err);
+      res.status(500).json({ message: "Internal Server Error" });
+    });
+});
+
 // GET /auth/verify (Verify a JWT)
 
 router.get("/verify", isAuthenticated, (req, res, next) => {

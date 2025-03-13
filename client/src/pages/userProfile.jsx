@@ -17,7 +17,7 @@ function UserProfile() {
     const handleDelete = (id) => {
         setLoading(true);
 
-        axios.delete(`${API_URL}/auth/delete/${id}`, {
+        axios.delete(`${API_URL}/auth/user/${id}`, {
             headers: { Authorization: `Bearer ${storeToken}` }
         })
         .then(() => {
@@ -35,24 +35,26 @@ function UserProfile() {
     };
 
     return (
-        <div className="user-profile">
-            <h2>User Profile</h2>
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Role:</strong> {user.role ? "Admin" : "Non-Admin"}</p>
+        <div className="profile-wrapper">
+            <div className="user-profile">
+                <h2>{user.name} Profile</h2>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Role:</strong> {user.role ? "Admin" : "Non-Admin"}</p>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+                {error && <p className="error-message">{error}</p>}
 
-            <button 
-                onClick={() => handleDelete(user._id)} 
-                style={{ backgroundColor: "red", color: "white", padding: "10px", borderRadius: "5px" }}
-                disabled={loading}
-            >
-                {loading ? "Deleting..." : "Delete Account"}
-            </button>
+                <div className="button-container">
+                    <button 
+                        onClick={() => handleDelete(user._id)} 
+                        className="delete-button"
+                        disabled={loading}
+                    >
+                        {loading ? "Deleting..." : "Delete Account"}
+                    </button>
 
-            <br />
-            <Link to="/">Back</Link>
+                    <Link to="/" className="back-button">Back</Link>
+                </div>
+            </div>
         </div>
     );
 }
