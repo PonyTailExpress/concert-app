@@ -47,30 +47,36 @@ function LikedArtists() {
 
   return (
     <div>
-      <h2>.</h2>
-      <div className="concerts-grid">
-        {artists.map((artist, index) => (
-          <div
-            key={artist._id}
-            className={`concert-item ${index % 2 === 0 ? "even" : "odd"}`}
-          >
-            <img
-              src={artist.artistImage}
-              alt={`Image of ${artist.name}`}
-              className="concert-image"
-            />
-            <h3>{artist.name}</h3>
-
-            <div className="concert-actions">
-              <Link to={`/artists/${artist._id}`}>
-                <button className="details-button">More Details</button>
-              </Link>
-            </div>
+      {!artists ? (
+        <h2>No liked artists</h2>
+      ) : (
+        <div>
+          <h2>.</h2>
+          <div className="concerts-grid">
+            {artists.map((artist, index) => (
+              <div
+                key={artist._id}
+                className={`concert-item ${index % 2 === 0 ? "even" : "odd"}`}
+              >
+                <img
+                  src={artist.artistImage}
+                  alt={`Image of ${artist.name}`}
+                  className="concert-image"
+                />
+                <h3>{artist.name}</h3>
+  
+                <div className="concert-actions">
+                  <Link to={`/artists/${artist._id}`}>
+                    <button className="details-button">More Details</button>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
-  );
-}
+  )
+} 
 
 export default LikedArtists;

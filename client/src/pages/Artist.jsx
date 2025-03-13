@@ -70,7 +70,7 @@ function Artists() {
       });
   }, []);
 
-  if (loading) return <p>Loading concerts...</p>;
+  if (loading) return <p>Loading artists...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
