@@ -46,30 +46,37 @@ function LikedConcerts() {
 
   return (
     <div>
-      <h2>.</h2>
-      <div className="concerts-grid">
-        {concerts.map((concert, index) => (
-          <div
-            key={concert._id}
-            className={`concert-item ${index % 2 === 0 ? "even" : "odd"}`}
-          >
-            <img
-              src={concert.image_url}
-              alt={concert.venue}
-              className="concert-image"
-            />
-            <h3>{concert.venue}</h3>
-
-            <div className="concert-actions">
-              <Link to={`/concerts/${concert._id}`}>
-                <button className="details-button">More Details</button>
-              </Link>
-            </div>
+      {!concerts ? (
+        <h2>No liked concerts</h2>
+      ) : (
+        <div>
+          <h2>.</h2>
+          <div className="concerts-grid">
+            {concerts.map((concert, index) => (
+              <div
+                key={concert._id}
+                className={`concert-item ${index % 2 === 0 ? "even" : "odd"}`}
+              >
+                <img
+                  src={concert.image_url}
+                  alt={concert.venue}
+                  className="concert-image"
+                />
+                <h3>{concert.venue}</h3>
+  
+                <div className="concert-actions">
+                  <Link to={`/concerts/${concert._id}`}>
+                    <button className="details-button">More Details</button>
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   );
+  
 }
 
 export default LikedConcerts;
