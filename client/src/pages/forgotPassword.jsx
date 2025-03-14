@@ -50,7 +50,7 @@ const ForgotPassword = () => {
 
   return (
     <div className="signin-form">
-      <h2>Forgot Password</h2>
+      <h2>Change Password</h2>
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
       <form onSubmit={handleSubmit}>
@@ -61,6 +61,7 @@ const ForgotPassword = () => {
             id="email"
             name="email"
             value={formData.email}
+            placeholder="someone2@domain.com"
             onChange={handleChange}
             required
           />
@@ -71,6 +72,7 @@ const ForgotPassword = () => {
             type="password"
             id="newPassword"
             name="newPassword"
+            placeholder="Camel1!@#"
             value={formData.newPassword}
             onChange={handleChange}
             required

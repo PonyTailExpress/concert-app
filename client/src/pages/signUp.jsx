@@ -68,6 +68,7 @@ const SignUpForm = () => {
             type="text"
             id="name"
             name="name"
+            placeholder="john doe, or jhon"
             value={formData.name}
             onChange={handleChange}
             required
@@ -79,6 +80,7 @@ const SignUpForm = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="someone2@domain.com"
             value={formData.email}
             onChange={handleChange}
             required
@@ -90,6 +92,7 @@ const SignUpForm = () => {
             type="password"
             id="password"
             name="password"
+            placeholder="Camel1!@#"
             value={formData.password}
             onChange={handleChange}
             required

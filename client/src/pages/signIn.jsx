@@ -64,6 +64,7 @@ const SignInForm = () => {
             type="email"
             id="email"
             name="email"
+            placeholder="someone2@domain.com"
             value={formData.email}
             onChange={handleChange}
             required
@@ -75,6 +76,7 @@ const SignInForm = () => {
             type="password"
             id="password"
             name="password"
+            placeholder="Camel1!@#"
             value={formData.password}
             onChange={handleChange}
             required
