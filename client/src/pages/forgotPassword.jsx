@@ -43,7 +43,7 @@ const ForgotPassword = () => {
         navigate("/signin");
       }, 1000);
     } catch (err) {
-      setError("Failed to update password. Please check your email.");
+      setError("Failed to update password. Email does not exist.");
       console.error("Error:", err);
     }
   };
